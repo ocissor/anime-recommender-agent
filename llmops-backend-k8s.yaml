@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: llmops-backend
+  labels:
+    app: llmops-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: llmops-backend
+  template:
+    metadata:
+      labels:
+        app: llmops-backend
+    spec:
+      containers:
+      - name: llmops-backend-container
+        image: llmops-backend:latest  # Use local image
+        imagePullPolicy: IfNotPresent
+        ports:
+          - containerPort: 8000
+        envFrom:
+          - secretRef:
+              name: llmops-secrets
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: llmops-backend-service
+spec:
+  type: ClusterIP
+  selector:
+    app: llmops-backend
+  ports:
+    - protocol: TCP
+      port: 8000
+      targetPort: 8000
