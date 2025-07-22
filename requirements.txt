@@ -11,3 +11,4 @@ pinecone
 langgraph 
 fastapi
 uvicorn[standard]
+langchain_google_genai

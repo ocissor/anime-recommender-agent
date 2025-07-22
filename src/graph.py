@@ -6,12 +6,12 @@ import sys
 from langgraph.checkpoint.memory import InMemorySaver
 from langgraph.types import Command
 from src.state import AnimeGraphState
-from src.recommendation_agent import anime_recommendation_agent
+from src.recommendation_agent import anime_recommendation_agent, anime_recommendation_agent_multi_query
 
 
 graph = StateGraph(AnimeGraphState)
 
-graph.add_node("anime_recommender",anime_recommendation_agent)
+graph.add_node("anime_recommender",anime_recommendation_agent_multi_query)
 
 graph.add_edge(START, "anime_recommender")
 
